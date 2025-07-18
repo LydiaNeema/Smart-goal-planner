@@ -1,18 +1,24 @@
+
 import { useOutletContext } from "react-router-dom";
-import GoalCard from "../components/GoalCard.jsx";
 
 function Dashboard() {
-  const { goals=[] } = useOutletContext(); // destructure goals properly
+  const { goals = [] } = useOutletContext();
 
   return (
     <div>
       <h1>My Dashboard</h1>
-      {goals?.map((goal) => (
-        <div key={goal.id}>
-          <h2>{goal.name}</h2>
-          <p>Target: ${goal.target}</p>
-        </div>
-      ))}
+      {goals.map((goal) => {
+        const saved = parseFloat(goal.savedAmount || goal.saved || 0);
+        const percent = Math.round((saved / goal.targetAmount) * 100);
+
+        return (
+          <div key={goal.id}>
+            <h2>{goal.name}</h2>
+            <p>Target: Ksh {goal.targetAmount}</p>
+            <p>Progress: {percent}%</p>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -8,6 +8,7 @@ function DepositForm({ onAddDeposit }) {
   });
 
   const [goals, setGoals] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/goals")
@@ -20,23 +21,44 @@ function DepositForm({ onAddDeposit }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
+  function validateForm() {
+    const { amount, date, goalId } = formData;
+
+    if (!goalId || !amount || !date) {
+      return "Please fill in all fields.";
+    }
+
+    if (isNaN(amount) || Number(amount) <= 0) {
+      return "Amount must be a valid positive number.";
+    }
+
+    return "";
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    if (!formData.goalId || !formData.amount || !formData.date) {
-      alert("Please fill in all fields.");
+    const validationError = validateForm();
+
+    if (validationError) {
+      setError(validationError);
       return;
     }
+
     onAddDeposit(formData.goalId, formData.amount);
     setFormData({ amount: "", date: "", goalId: "" });
+    setError(""); // clear errors
   }
 
   return (
     <div>
       <h2>Add Deposit</h2>
-      <form onSubmit={handleSubmit}>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      <form onSubmit={handleSubmit} autoComplete="on">
         <label htmlFor="amount">Amount</label><br />
         <input
-          type="text"
+          type="number"
           name="amount"
           id="amount"
           value={formData.amount}
@@ -47,12 +69,11 @@ function DepositForm({ onAddDeposit }) {
 
         <label htmlFor="date">Date</label><br />
         <input
-          type="text"
+          type="date"
           name="date"
           id="date"
           value={formData.date}
           onChange={handleChange}
-          placeholder="Enter Date"
           autoComplete="off"
         /><br />
 

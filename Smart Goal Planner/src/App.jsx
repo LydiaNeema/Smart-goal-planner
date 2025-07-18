@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -6,6 +7,7 @@ function App() {
   const [goals, setGoals] = useState([]);
   const [deposits, setDeposits] = useState([]);
 
+  // Fetch goals and deposits on load
   useEffect(() => {
     fetch("http://localhost:3000/goals")
       .then((r) => r.json())
@@ -16,35 +18,58 @@ function App() {
       .then(setDeposits);
   }, []);
 
-  // Add new goal to state
+  // Add new goal
   function handleAddGoal(newGoal) {
     setGoals((prev) => [...prev, newGoal]);
   }
 
-  // Add new deposit to state
-  function handleAddDeposit(goalId, amount) {
-  setGoals((prevGoals) =>
-    prevGoals.map((goal) =>
-      goal.id === parseInt(goalId)
-        ? { ...goal, savedAmount: goal.savedAmount + Number(amount) }
-        : goal
-    )
-  );
+  // Add deposit and update savedAmount on the related goal
+  function handleAddDeposit(goalId, depositAmount) {
+    const goalToUpdate = goals.find((goal) => String(goal.id) === String(goalId));
 
-  // Optional: Post a new deposit to keep the /deposits log alive
-  fetch("http://localhost:3000/deposits", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ goalId, amount, date: new Date().toISOString().slice(0, 10) }),
-  });
-}
+    if (!goalToUpdate) return;
 
+    const previousAmount = parseFloat(goalToUpdate.savedAmount || goalToUpdate.saved || 0);
+    const newAmount = previousAmount + parseFloat(depositAmount);
+
+    // PATCH the goal's savedAmount
+    fetch(`http://localhost:3000/goals/${goalId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ savedAmount: newAmount })
+    })
+      .then((r) => r.json())
+      .then((updatedGoal) => {
+        // Update state (string-based ID comparison)
+        setGoals((prev) =>
+          prev.map((goal) =>
+            String(goal.id) === String(updatedGoal.id) ? updatedGoal : goal
+          )
+        );
+
+        // Create new deposit
+        const newDeposit = {
+          goalId,
+          amount: depositAmount,
+          date: new Date().toISOString().split("T")[0]
+        };
+
+        fetch("http://localhost:3000/deposits", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newDeposit)
+        })
+          .then((r) => r.json())
+          .then((savedDeposit) => {
+            setDeposits((prev) => [...prev, savedDeposit]);
+          });
+      });
+  }
 
   return (
     <div className="App">
-        <NavBar />
-      <Outlet context={{ goals,deposits, handleAddGoal, handleAddDeposit }} />
-
+      <NavBar />
+      <Outlet context={{ goals, deposits, handleAddGoal, handleAddDeposit }} />
     </div>
   );
 }
