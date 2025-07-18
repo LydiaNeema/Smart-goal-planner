@@ -1,21 +1,19 @@
-import { Outlet, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import GoalCard from "../components/GoalCard.jsx";
+
 function Dashboard() {
-    const goals=useOutletContext();
+  const { goals=[] } = useOutletContext(); // destructure goals properly
+
   return (
-    
-      <div>
+    <div>
       <h1>My Dashboard</h1>
-      {goals.map(goal => (
+      {goals?.map((goal) => (
         <div key={goal.id}>
           <h2>{goal.name}</h2>
           <p>Target: ${goal.target}</p>
-          
         </div>
       ))}
     </div>
-     
-
   );
 }
 

@@ -1,16 +1,19 @@
-import GoalCard from "../components/GoalCard";
 import { useOutletContext } from "react-router-dom";
+import GoalForm from "../components/GoalForm";
+import GoalCard from "../components/GoalCard";
 
 function Goals() {
-  const goals = useOutletContext();
+  const { goals, handleAddGoal } = useOutletContext();
 
   return (
     <div>
       <h1>My Goals</h1>
-      {goals.map(goal => (
+      <GoalForm onAddGoal={handleAddGoal} />
+      {goals?.map((goal) => (
         <GoalCard key={goal.id} goal={goal} />
       ))}
     </div>
   );
 }
+
 export default Goals;

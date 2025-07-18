@@ -1,6 +1,7 @@
- function GoalForm(){
+import { useState } from "react";
 
-     const [formData, setFormData] = useState({
+function GoalForm({ onAddGoal }) {
+  const [formData, setFormData] = useState({
     name: "",
     target: "",
     saved: "",
@@ -22,31 +23,81 @@
     })
       .then(r => r.json())
       .then(newGoal => {
-        onAddGoal(newGoal); 
-        setFormData({ name: "", target: "", saved: "", deadline: "", category: "" });
+        onAddGoal(newGoal);
+        setFormData({
+          name: "",
+          target: "",
+          saved: "",
+          deadline: "",
+          category: ""
+        });
       });
-    }
-    return(
-        <div>
-            <form onSubmit={handleSubmit}>
-                 <label for="name">Name</label>
-                 <br></br>
-                <input type="text" name="name" value={formData.name}  onChange={handleChange}placeholder="Enter Name"/>
-                <label for="target">Target Amount</label>
-                 <br></br>
-                <input type="text"  name="target" value={formData.name}  onChange={handleChange} placeholder="Enter Target Amount"/>
-                <label for="saved">Saved so far</label>
-                 <br></br>
-               <input type="text"  name="saved" value={formData.name}   onChange={handleChange} placeholder="Enter Amount to save"/>
-                <label for="deadline">Deadline</label>
-                 <br></br>
-                <input type="text"value={formData.name}  name="deadline"  onChange={handleChange}placeholder="Enter Deadline"/>
-                <label for="category">Category</label>
-                 <br></br>
-                <input type="text"value={formData.name}  name="category" onChange={handleChange} placeholder="Enter Category"/>
+  }
 
-            </form>
-        </div>
-    );
- }
- export default GoalForm;
+  return (
+    <div>
+      <h2>Add New Goal</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label><br />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Enter Name"
+          autoComplete="off"
+        /><br />
+
+        <label htmlFor="target">Target Amount</label><br />
+        <input
+          type="text"
+          id="target"
+          name="target"
+          value={formData.target}
+          onChange={handleChange}
+          placeholder="Enter Target Amount"
+          autoComplete="off"
+        /><br />
+
+        <label htmlFor="saved">Saved so far</label><br />
+        <input
+          type="text"
+          id="saved"
+          name="saved"
+          value={formData.saved}
+          onChange={handleChange}
+          placeholder="Enter Saved Amount"
+          autoComplete="off"
+        /><br />
+
+        <label htmlFor="deadline">Deadline</label><br />
+        <input
+          type="text"
+          id="deadline"
+          name="deadline"
+          value={formData.deadline}
+          onChange={handleChange}
+          placeholder="Enter Deadline"
+          autoComplete="off"
+        /><br />
+
+        <label htmlFor="category">Category</label><br />
+        <input
+          type="text"
+          id="category"
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          placeholder="Enter Category"
+          autoComplete="off"
+        /><br />
+
+        <button type="submit">Add Goal</button>
+      </form>
+    </div>
+  );
+}
+
+export default GoalForm;
+
