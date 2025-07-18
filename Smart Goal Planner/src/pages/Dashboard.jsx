@@ -10,6 +10,7 @@ function Dashboard() {
         <div key={goal.id}>
           <h2>{goal.name}</h2>
           <p>Target: ${goal.target}</p>
+          
         </div>
       ))}
     </div>
