@@ -10,15 +10,6 @@
       "createdAt": "2024-01-15"
     },
     {
-      "id": "2",
-      "name": "Emergency Fund",
-      "targetAmount": 10000,
-      "savedAmount": 7500,
-      "category": "Emergency",
-      "deadline": "2026-06-30",
-      "createdAt": "2023-05-01"
-    },
-    {
       "id": "3",
       "name": "New Laptop",
       "targetAmount": 1500,

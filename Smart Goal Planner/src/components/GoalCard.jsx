@@ -1,17 +1,14 @@
-
-import React from 'react';
-
-function GoalCard({ goal }) {
+function GoalCard({ goal, onDelete, onEdit }) {
   const {
+    id,
     name,
     targetAmount,
     savedAmount,
-    saved, // fallback if needed
     deadline,
     category
   } = goal;
 
-  const savedTotal = parseFloat(savedAmount || saved || 0);
+  const savedTotal = parseFloat(savedAmount || 0);
   const percent = targetAmount ? (savedTotal / targetAmount) * 100 : 0;
 
   return (
@@ -23,6 +20,9 @@ function GoalCard({ goal }) {
       <p>Deadline: {deadline}</p>
       <progress value={savedTotal} max={targetAmount}></progress>
       <p>{percent.toFixed(2)}% complete</p>
+
+      <button onClick={() => onEdit(goal)}>Edit</button>
+      <button onClick={() => onDelete(id)}>Delete</button>
     </div>
   );
 }

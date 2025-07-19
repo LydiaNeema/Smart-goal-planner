@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function DepositForm({ onAddDeposit }) {
+function DepositForm({ onAddDeposit, onEditDeposit, editingDeposit, clearEditing }) {
   const [formData, setFormData] = useState({
     amount: "",
     date: "",
@@ -16,6 +16,16 @@ function DepositForm({ onAddDeposit }) {
       .then(setGoals);
   }, []);
 
+  useEffect(() => {
+    if (editingDeposit) {
+      setFormData({
+        amount: editingDeposit.amount,
+        date: editingDeposit.date,
+        goalId: editingDeposit.goalId,
+      });
+    }
+  }, [editingDeposit]);
+
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -23,55 +33,50 @@ function DepositForm({ onAddDeposit }) {
 
   function validateForm() {
     const { amount, date, goalId } = formData;
-
-    if (!goalId || !amount || !date) {
-      return "Please fill in all fields.";
-    }
-
-    if (isNaN(amount) || Number(amount) <= 0) {
-      return "Amount must be a valid positive number.";
-    }
-
+    if (!goalId || !amount || !date) return "Please fill in all fields.";
+    if (isNaN(amount) || Number(amount) <= 0) return "Amount must be valid.";
     return "";
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     const validationError = validateForm();
-
     if (validationError) {
       setError(validationError);
       return;
     }
 
-    onAddDeposit(formData.goalId, formData.amount);
+    if (editingDeposit) {
+      onEditDeposit({ ...editingDeposit, ...formData });
+      clearEditing();
+    } else {
+      onAddDeposit(formData.goalId, formData.amount);
+    }
+
     setFormData({ amount: "", date: "", goalId: "" });
-    setError(""); // clear errors
+    setError("");
   }
 
   return (
     <div>
-      <h2>Add Deposit</h2>
-
+      <h2>{editingDeposit ? "Edit Deposit" : "Add Deposit"}</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
-
       <form onSubmit={handleSubmit} autoComplete="on">
         <label htmlFor="amount">Amount</label><br />
         <input
+          id="amount"
           type="number"
           name="amount"
-          id="amount"
           value={formData.amount}
           onChange={handleChange}
-          placeholder="Enter Amount"
           autoComplete="off"
         /><br />
 
         <label htmlFor="date">Date</label><br />
         <input
+          id="date"
           type="date"
           name="date"
-          id="date"
           value={formData.date}
           onChange={handleChange}
           autoComplete="off"
@@ -79,8 +84,8 @@ function DepositForm({ onAddDeposit }) {
 
         <label htmlFor="goalId">Goal</label><br />
         <select
-          name="goalId"
           id="goalId"
+          name="goalId"
           value={formData.goalId}
           onChange={handleChange}
           autoComplete="off"
@@ -93,7 +98,12 @@ function DepositForm({ onAddDeposit }) {
           ))}
         </select><br />
 
-        <button type="submit">Add Deposit</button>
+        <button type="submit">{editingDeposit ? "Update" : "Add"} Deposit</button>
+        {editingDeposit && (
+          <button type="button" onClick={clearEditing}>
+            Cancel
+          </button>
+        )}
       </form>
     </div>
   );
