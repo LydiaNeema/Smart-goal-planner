@@ -1,0 +1,105 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* General Page Layout */
+.page {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.page h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Overview Section */
+.overview {
+  background-color: #f5f5f5;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+}
+
+.overview h2 {
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.overview p {
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+/* Goal Card Style */
+.goal-card {
+  border: 1px solid #ccc;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.goal-card h2 {
+  margin-bottom: 0.5rem;
+}
+
+.goal-card p {
+  margin: 0.4rem 0;
+}
+
+.goal-complete {
+  color: green;
+  font-weight: bold;
+}
+
+.goal-warning {
+  color: orange;
+  font-weight: bold;
+}
+
+.goal-overdue {
+  color: red;
+  font-weight: bold;
+}
+
+/* Form Styling */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form input,
+form select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  padding: 0.6rem;
+  background-color: steelblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #1f4e78;
+}
+
+
+
+
+
+
