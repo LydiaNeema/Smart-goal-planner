@@ -4,7 +4,11 @@ import "./NavBar.css";
 function NavBar() {
   return (
     <nav className="nav-container">
-      <div className="nav-title">Smart Goal Planner</div>
+      <div className="nav-title">
+        
+        Smart Goal Planner
+<p>Effortless smart goal management</p>
+      </div>
       <div className="nav-links">
         <NavLink
           to="/"

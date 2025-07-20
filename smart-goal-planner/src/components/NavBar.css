@@ -11,7 +11,12 @@
 /* App title */
 .nav-title {
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.nav-title p{
+  color: #ffffff;
+  font-size: 0.5rem;
   font-weight: bold;
 }
 

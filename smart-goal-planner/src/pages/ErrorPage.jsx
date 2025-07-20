@@ -5,9 +5,11 @@ function ErrorPage() {
   console.error(error);
 
   return (
-    <main>
-        <h1>Whoops! Something went wrong!</h1>
-    </main>
+    <main style={{ textAlign: "center", padding: "2rem" }}>
+  <h1 style={{ color: "#e63946" }}>Oops! Something went wrong.</h1>
+  <p>Please try again or refresh the page.</p>
+</main>
+
   );
 };
 

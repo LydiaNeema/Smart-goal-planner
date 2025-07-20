@@ -57,47 +57,115 @@ function DepositForm({ onAddDeposit, onEditDeposit, editingDeposit, clearEditing
   }
 
   return (
-    <div>
-      <h2>{editingDeposit ? "Edit Deposit" : "Add Deposit"}</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit} autoComplete="on">
-        <label>Amount</label><br />
-        <input
-          type="number"
-          name="amount"
-          value={formData.amount}
-          onChange={handleChange}
-           autoComplete="off"
-        /><br />
-        <label>Date</label><br />
-        <input
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-           autoComplete="off"
-        /><br />
-        <label>Goal</label><br />
-        <select
-          name="goalId"
-          value={formData.goalId}
-          onChange={handleChange}
-           autoComplete="off"
-        >
-          <option value="">Select Goal</option>
-          {goals.map((goal) => (
-            <option key={goal.id} value={goal.id}>{goal.name}</option>
-          ))}
-        </select><br />
+    <div
+  style={{
+    backgroundColor: "#f9f9f9",
+    padding: "1.5rem",
+    borderRadius: "10px",
+    maxWidth: "500px",
+    margin: "2rem auto",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+  }}
+>
+  <h2 style={{ marginBottom: "1rem", color: "#333" }}>
+    {editingDeposit ? "Edit Deposit" : "Add Deposit"}
+  </h2>
 
-        <button type="submit">{editingDeposit ? "Update" : "Add"} Deposit</button>
-        {editingDeposit && (
-  <button type="button" onClick={clearEditing}>
-    Cancel
-  </button>
-)}
-      </form>
+  {error && <p style={{ color: "red", marginBottom: "1rem" }}>{error}</p>}
+
+  <form onSubmit={handleSubmit} autoComplete="on">
+    <div style={{ marginBottom: "1rem" }}>
+      <label style={{ display: "block", marginBottom: "0.3rem" }}>Amount</label>
+      <input
+        type="number"
+        name="amount"
+        value={formData.amount}
+        onChange={handleChange}
+        autoComplete="off"
+        style={{
+          width: "100%",
+          padding: "0.6rem",
+          border: "1px solid #ccc",
+          borderRadius: "6px",
+        }}
+      />
     </div>
+
+    <div style={{ marginBottom: "1rem" }}>
+      <label style={{ display: "block", marginBottom: "0.3rem" }}>Date</label>
+      <input
+        type="date"
+        name="date"
+        value={formData.date}
+        onChange={handleChange}
+        autoComplete="off"
+        style={{
+          width: "100%",
+          padding: "0.6rem",
+          border: "1px solid #ccc",
+          borderRadius: "6px",
+        }}
+      />
+    </div>
+
+    <div style={{ marginBottom: "1.5rem" }}>
+      <label style={{ display: "block", marginBottom: "0.3rem" }}>Goal</label>
+      <select
+        name="goalId"
+        value={formData.goalId}
+        onChange={handleChange}
+        autoComplete="off"
+        style={{
+          width: "100%",
+          padding: "0.6rem",
+          border: "1px solid #ccc",
+          borderRadius: "6px",
+        }}
+      >
+        <option value="">Select Goal</option>
+        {goals.map((goal) => (
+          <option key={goal.id} value={goal.id}>
+            {goal.name}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <div style={{ display: "flex", gap: "1rem" }}>
+      <button
+        type="submit"
+        style={{
+          padding: "0.6rem 1.2rem",
+          backgroundColor: "green",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        {editingDeposit ? "Update" : "Add"} Deposit
+      </button>
+
+      {editingDeposit && (
+        <button
+          type="button"
+          onClick={clearEditing}
+          style={{
+            padding: "0.6rem 1.2rem",
+            backgroundColor: "red",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+          }}
+        >
+          Cancel
+        </button>
+      )}
+    </div>
+  </form>
+</div>
+
   );
 }
 export default DepositForm;
