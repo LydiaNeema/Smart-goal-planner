@@ -1,13 +1,28 @@
-// server.js
 const jsonServer = require("json-server");
-const server = jsonServer.create();
-const router = jsonServer.router("db.json");
-const middlewares = jsonServer.defaults();
+const express = require("express");
+const path = require("path");
 const cors = require("cors");
 
-server.use(cors());
-server.use(middlewares);
-server.use("/api", router);
-server.listen(process.env.PORT || 3000, () => {
-  console.log("JSON Server is running");
+const app = express();
+const router = jsonServer.router("db.json");
+const middlewares = jsonServer.defaults();
+
+app.use(cors());
+app.use(middlewares);
+
+// Serve frontend build from /dist
+app.use(express.static(path.join(__dirname, "dist")));
+
+// Mount JSON Server under /api
+app.use("/api", router);
+
+// Fallback for React Router (client-side routing)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
+// Listen on dynamic port for Render
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
