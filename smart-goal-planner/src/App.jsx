@@ -139,6 +139,8 @@ function handleDeleteDeposit(deposit) {
           handleEditGoal,
           handleDeleteGoal,
           handleAddDeposit,
+          handleEditDeposit, 
+    handleDeleteDeposit
         }}
       />
     </div>

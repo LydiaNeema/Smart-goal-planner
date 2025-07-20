@@ -4,7 +4,7 @@
       "id": "1",
       "name": "Travel Fund - Japan",
       "targetAmount": 5000,
-      "savedAmount": 3300,
+      "savedAmount": 3500,
       "category": "Travel",
       "deadline": "2025-12-31",
       "createdAt": "2024-01-15"
@@ -80,6 +80,14 @@
       "category": "Home",
       "deadline": "2025-03-31",
       "createdAt": "2024-05-15"
+    },
+    {
+      "id": "34e0",
+      "name": "Technical course",
+      "targetAmount": 500000,
+      "savedAmount": 0,
+      "deadline": "2026-02-01",
+      "category": "Education"
     }
   ],
   "deposits": [
@@ -94,6 +102,12 @@
       "goalId": "1",
       "amount": "100",
       "date": "2025-07-18"
+    },
+    {
+      "id": "d090",
+      "goalId": "1",
+      "amount": "200",
+      "date": "2025-07-20"
     }
   ]
 }

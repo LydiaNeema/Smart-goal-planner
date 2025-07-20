@@ -31,13 +31,56 @@ function Deposits() {
         <ul>
           {deposits.map((d) => {
             const goal = goals.find((g) => String(g.id) === String(d.goalId));
-            return (
-              <li key={d.id}>
-                <strong>{goal ? goal.name : "Unknown Goal"}</strong>: ${d.amount} - {d.date}
-                <button onClick={() => setEditingDeposit(d)}>Edit</button>
-                <button onClick={() => handleDeleteDeposit(d)}>Delete</button>
-              </li>
-            );
+            return<li
+  key={d.id}
+  style={{
+    listStyle: "none",
+    padding: "1rem",
+    marginBottom: "1rem",
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    backgroundColor: "#f4f4f4",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap"
+  }}
+>
+  <div style={{ flex: "1 1 auto", marginRight: "1rem" }}>
+    <strong>{goal ? goal.name : "Unknown Goal"}</strong>: Ksh {d.amount} – {d.date}
+  </div>
+
+  <div style={{ display: "flex", gap: "0.5rem" }}>
+    <button
+      onClick={() => setEditingDeposit(d)}
+      style={{
+        backgroundColor: "green",
+        color: "white",
+        border: "none",
+        padding: "0.5rem 0.8rem",
+        borderRadius: "5px",
+        cursor: "pointer"
+      }}
+    >
+      Edit
+    </button>
+
+    <button
+      onClick={() => handleDeleteDeposit(d)}
+      style={{
+        backgroundColor: "red",
+        color: "white",
+        border: "none",
+        padding: "0.5rem 0.8rem",
+        borderRadius: "5px",
+        cursor: "pointer"
+      }}
+    >
+      Delete
+    </button>
+  </div>
+</li>
+
           })}
         </ul>
       </section>
