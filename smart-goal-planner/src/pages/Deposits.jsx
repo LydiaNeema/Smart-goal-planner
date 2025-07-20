@@ -1,8 +1,9 @@
 import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
 import DepositForm from "../components/DepositForm";
-
+//deposits page
 function Deposits() {
+  //receive props from app.jsx to use
   const {
     deposits,
     goals,

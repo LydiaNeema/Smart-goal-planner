@@ -1,7 +1,8 @@
 import { useOutletContext } from "react-router-dom";
 import { useMemo } from "react";
-
+// dashboard page 
 function Dashboard() {
+  //used useoutletcontext to receive the prop goals from app.jsx
   const { goals = [] } = useOutletContext();
 
   // Total number of goals

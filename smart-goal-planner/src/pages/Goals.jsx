@@ -2,8 +2,9 @@ import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
 import GoalForm from "../components/GoalForm";
 import GoalCard from "../components/GoalCard";
-
+//function goal page
 function Goals() {
+  //passed props from app.jsx
   const {
     goals,
     handleAddGoal,

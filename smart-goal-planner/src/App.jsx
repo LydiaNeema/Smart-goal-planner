@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./components/NavBar";
-
+// in app.jsx all functionalities needed in the page are declared here and passed down to the children as props using outlet
+//data is fetched here
 function App() {
   const [goals, setGoals] = useState([]);
   const [deposits, setDeposits] = useState([]);
