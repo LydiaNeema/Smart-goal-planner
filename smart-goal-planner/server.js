@@ -1,10 +1,11 @@
-import jsonServer from "json-server";
+// server.js
 import express from "express";
 import path from "path";
-import cors from "cors";
 import { fileURLToPath } from "url";
+import cors from "cors";
+import jsonServer from "json-server";
 
-// Setup __dirname workaround for ES modules
+// Setup for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -15,7 +16,7 @@ const middlewares = jsonServer.defaults();
 app.use(cors());
 app.use(middlewares);
 
-// Serve frontend build from dist
+// Serve frontend build from /dist
 app.use(express.static(path.join(__dirname, "dist")));
 
 // Mount JSON Server under /api
