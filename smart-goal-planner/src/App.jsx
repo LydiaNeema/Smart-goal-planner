@@ -8,11 +8,11 @@ function App() {
   const [deposits, setDeposits] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/goals")
+    fetch("https://json-server-deployment-d96k.onrender.com/goals")
       .then((r) => r.json())
       .then(setGoals);
 
-    fetch("http://localhost:3000/deposits")
+    fetch("https://json-server-deployment-d96k.onrender.com/deposits")
       .then((r) => r.json())
       .then(setDeposits);
   }, []);
@@ -22,7 +22,7 @@ function App() {
   }
 
   function handleEditGoal(updatedGoal) {
-    fetch(`http://localhost:3000/goals/${updatedGoal.id}`, {
+    fetch(`https://json-server-deployment-d96k.onrender.com/goals/${updatedGoal.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedGoal),
@@ -39,7 +39,7 @@ function App() {
   const confirmed = window.confirm("Are you sure you want to delete this goal?");
   if (!confirmed) return;
 
-  fetch(`http://localhost:3000/goals/${id}`, {
+  fetch(`https://json-server-deployment-d96k.onrender.com/goals/${id}`, {
     method: "DELETE",
   }).then(() => {
     setGoals((prev) => prev.filter((goal) => goal.id !== id));
@@ -53,7 +53,7 @@ function App() {
     const previousAmount = parseFloat(goalToUpdate.savedAmount || 0);
     const newAmount = previousAmount + parseFloat(depositAmount);
 
-    fetch(`http://localhost:3000/goals/${goalId}`, {
+    fetch(`https://json-server-deployment-d96k.onrender.com/goals/${goalId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ savedAmount: newAmount }),
@@ -72,7 +72,7 @@ function App() {
           date: new Date().toISOString().split("T")[0],
         };
 
-        fetch("http://localhost:3000/deposits", {
+        fetch("https://json-server-deployment-d96k.onrender.com/deposits", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newDeposit),
@@ -85,7 +85,7 @@ function App() {
   }
 function handleEditDeposit(updatedDeposit) {
   // First, update the deposit in the DB
-  fetch(`http://localhost:3000/deposits/${updatedDeposit.id}`, {
+  fetch(`https://json-server-deployment-d96k.onrender.com/deposits/${updatedDeposit.id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedDeposit),
@@ -103,7 +103,7 @@ function handleDeleteDeposit(deposit) {
   const confirmed = window.confirm("Are you sure you want to delete this deposit?");
   if (!confirmed) return;
 
-  fetch(`http://localhost:3000/deposits/${deposit.id}`, {
+  fetch(`https://json-server-deployment-d96k.onrender.com/deposits/${deposit.id}`, {
     method: "DELETE",
   }).then(() => {
     // Subtract deposit amount from goal’s savedAmount
@@ -111,7 +111,7 @@ function handleDeleteDeposit(deposit) {
     if (goal) {
       const newSaved = parseFloat(goal.savedAmount) - parseFloat(deposit.amount);
 
-      fetch(`http://localhost:3000/goals/${goal.id}`, {
+      fetch(`https://json-server-deployment-d96k.onrender.com/goals/${goal.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ savedAmount: newSaved }),
